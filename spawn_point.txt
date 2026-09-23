@@ -13,11 +13,11 @@ if SERVER then
 		end
 	end)
 	local pos
-	local holo = hologram.create(Vector(0,0,0),Angle(0,0,0),"models/props_c17/gravestone_cross001a.mdl",Vector(-1,-1,-1))
+	local holo = hologram.create(Vector(0,0,0) + Vector(0,0,30),Angle(0,0,0),"models/props_c17/gravestone_cross001a.mdl",Vector(0.4,0.4,0.4))
 	hook.add("PlayerDeath", "pos", function(ply, inflictor, attacker)
 		if ply == owner() then
 			pos = ply:getPos()
-			holo:setPos(pos)
+			holo:setPos(pos + Vector(0,0,30))
 			net.start("sound")
             net.send()
 			attacker:kill()
