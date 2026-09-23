@@ -4,10 +4,16 @@
 local lock = false
 local A
 local B
+local C
+local D
 local trap = false
 if SERVER then
 	hook.add("Tick","a",function()
 		if lock then
+			C:setPos(A:getPos() - A:getUp() * 1)
+			C:setAngles(A:getAngles())
+			D:setPos(B:getPos() - B:getUp() * 1)
+			D:setAngles(B:getAngles())
 			local PLYS = find.allPlayers()
 			for _, ply in ipairs(PLYS) do
 				local dis = A:getPos():getDistance(ply:getPos())
@@ -21,9 +27,10 @@ if SERVER then
 				end
 			end
 		else
+			C = hologram.create(Vector(0,0,0),Angle(0,90,90),"models/effects/portalrift.mdl",Vector(0.06, 0.09, 0.1))
+			D = hologram.create(Vector(0,0,0),Angle(0,90,90),"models/effects/portalrift.mdl",Vector(0.06, 0.09, 0.1))
 			A = hologram.create(Vector(0,0,0),Angle(0,90,90),"models/holograms/hq_cylinder.mdl",Vector(8,11,0.05))
 			B = hologram.create(Vector(0,0,0),Angle(0,90,90),"models/holograms/hq_cylinder.mdl",Vector(8,11,0.05))
-
 			A:setColor(Color(0,255,0))
 			B:setColor(Color(0,255,0))
 			lock = true
