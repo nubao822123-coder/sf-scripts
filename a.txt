@@ -1,0 +1,168 @@
+--@name Untitled66
+--@author Kid benglao
+--@shared
+local lock = false
+local A
+local B
+local trap = false
+if SERVER then
+	hook.add("Tick","a",function()
+		if lock then
+			local PLYS = find.allPlayers()
+			for _, ply in ipairs(PLYS) do
+				local dis = A:getPos():getDistance(ply:getPos())
+				if dis <= 80 then
+					if trap then
+						ply:setPos(B:getPos())
+						ply:kill()
+					else
+						ply:setPos(B:getPos())
+					end
+				end
+			end
+		else
+			A = hologram.create(Vector(0,0,0),Angle(0,90,90),"models/holograms/hq_cylinder.mdl",Vector(8,11,0.05))
+			B = hologram.create(Vector(0,0,0),Angle(0,90,90),"models/holograms/hq_cylinder.mdl",Vector(8,11,0.05))
+
+			A:setColor(Color(0,255,0))
+			B:setColor(Color(0,255,0))
+			lock = true
+		end
+	end)
+	hook.add("PlayerSay", "b",function(ply,m)
+		local message = string.explode(" ",string.lower(m))
+		local comando = message[1]
+		if comando == ".portal" then 
+			local lugar = message[2]
+
+			if lugar == "spawn" then
+				B:setPos(Vector(-318,-1062,-11140) + Vector(0,0,60))
+				local frente = ply:getPos() + (ply:getForward() * 100)
+				A:setPos(frente + Vector(0,0,60))
+				A:setAngles(Angle(0, ply:getAngles().y, 0)+ Angle(0,90,90))
+				net.start("som")
+				net.writeEntity(A)
+				net.send()
+				net.start("som2")
+				net.writeEntity(B)
+				net.send()
+				timer.simple(3,function()
+					A:setPos(Vector(0,0,0))
+					B:setPos(Vector(0,0,0))
+				end)
+			end
+			if lugar == "torre" then
+				B:setPos(Vector(-770,-7469,448) + Vector(0,0,60))
+				local frente = ply:getPos() + (ply:getForward() * 100)
+				A:setPos(frente + Vector(0,0,60))
+				A:setAngles(Angle(0, ply:getAngles().y, 0)+ Angle(0,90,90))
+				net.start("som")
+				net.writeEntity(A)
+				net.send()
+				net.start("som2")
+				net.writeEntity(B)
+				net.send()
+				timer.simple(3,function()
+					A:setPos(Vector(0,0,0))
+					B:setPos(Vector(0,0,0))
+				end)
+			end
+			if lugar == "torre2" then
+				B:setPos(Vector(-789,2766,-9344) + Vector(0,0,60))
+				local frente = ply:getPos() + (ply:getForward() * 100)
+				A:setPos(frente + Vector(0,0,60))
+				A:setAngles(Angle(0, ply:getAngles().y, 0)+ Angle(0,90,90))
+				net.start("som")
+				net.writeEntity(A)
+				net.send()
+				net.start("som2")
+				net.writeEntity(B)
+				net.send()
+				timer.simple(3,function()
+					A:setPos(Vector(0,0,0))
+					B:setPos(Vector(0,0,0))
+				end)
+			end
+			if lugar == "skybox" then
+				B:setPos(Vector(359,91,4352) + Vector(0,0,60))
+				local frente = ply:getPos() + (ply:getForward() * 100)
+				A:setPos(frente + Vector(0,0,60))
+				A:setAngles(Angle(0, ply:getAngles().y, 0)+ Angle(0,90,90))
+				net.start("som")
+				net.writeEntity(A)
+				net.send()
+				net.start("som2")
+				net.writeEntity(B)
+				net.send()
+				timer.simple(3,function()
+					A:setPos(Vector(0,0,0))
+					B:setPos(Vector(0,0,0))
+				end)
+			end
+			if lugar == "trap" then
+				trap = 1
+				B:setPos(Vector(0,0,0) + Vector(0,0,60))
+				local frente = ply:getPos() + (ply:getForward() * 100)
+				A:setPos(frente + Vector(0,0,60))
+				A:setAngles(Angle(0, ply:getAngles().y, 0)+ Angle(0,90,90))
+				net.start("som")
+				net.writeEntity(A)
+				net.send()
+				net.start("som2")
+				net.writeEntity(B)
+				net.send()
+				timer.simple(3,function()
+					A:setPos(Vector(0,0,0))
+					B:setPos(Vector(0,0,0))
+					trap = false
+				end)
+			end
+			return ""
+		end
+		if comando == ".player" then
+			local teorico = message[2]
+			local Player = find.playersByName(teorico)
+
+			if Player then
+				local plr = Player[1]
+				local frente = ply:getPos() + (ply:getForward() * 100)
+				local atras = plr:getPos() - (plr:getForward() * 100)
+
+				A:setPos(frente + Vector(0,0,60))
+				B:setPos(atras + Vector(0,0,60))
+
+				A:setAngles(Angle(0, ply:getAngles().y, 0)+ Angle(0,90,90))
+				B:setAngles(Angle(0, plr:getAngles().y, 0)+ Angle(0,90,90))
+				net.start("som")
+				net.writeEntity(A)
+				net.send()
+				net.start("som2")
+				net.writeEntity(B)
+				net.send()
+				timer.simple(3,function()
+					A:setPos(Vector(0,0,0))
+					B:setPos(Vector(0,0,0))
+				end)
+			end
+		end
+	end)
+else
+	net.receive("som",function()
+		local holo = net.readEntity()
+		bass.loadURL("https://cdn.discordapp.com/attachments/1552030417945759764/1552353869084758098/portal-gun-sound-effect.mp3?ex=6ab54db3&is=6ab3fc33&hm=14f4de0caf96a02c72d188d6b53c210645aa64d94ceb0ed00a7fc9ee18d1fcfb&", "3d", function(som, erroId, erroNome)
+        	if not isValid(som) then return end
+			som:setVolume(1)
+        	som:setPos(holo:getPos())
+        	som:play()
+    	end)
+	end)
+	net.receive("som2",function()
+		local holo = net.readEntity()
+		bass.loadURL("https://cdn.discordapp.com/attachments/1552030417945759764/1552353869084758098/portal-gun-sound-effect.mp3?ex=6ab54db3&is=6ab3fc33&hm=14f4de0caf96a02c72d188d6b53c210645aa64d94ceb0ed00a7fc9ee18d1fcfb&", "3d", function(som, erroId, erroNome)
+        	if not isValid(som) then return end
+			som:setVolume(1)
+        	som:setPos(holo:getPos())
+        	som:play()
+    	end)
+	end)
+end
