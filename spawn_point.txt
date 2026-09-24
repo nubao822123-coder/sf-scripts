@@ -37,7 +37,7 @@ else
 		end)
 	end)
 	net.receive("sound2", function()
-		bass.loadURL("https://ucb71ad36d4d06f829e868a5c459.dl.dropboxusercontent.com/cd/0/inline/DIv9gegqRyOFYyo1pPF5Hw_6j-tu2ZPqEjfMmOaEcPaPCkqJ-t4So6awZVJKqXU-etg4G7JkGZHYraWQkgsYUD2k2uo1-SG6UNCokDkBUv2lIlDxmngYpl4c3umNl6nqhl81gBtyzS226cXUJD0wKaog/file#", "3d", function(som, erroId, erroNome)
+		bass.loadURL("https://uc8df114e6924db341c82deb4377.dl.dropboxusercontent.com/cd/0/inline/DIta70MdnJIGayWsdUMBXrqlfNeqww814_NQ03oOT5_AkinBYU42N6STLVqPVJ-zfpkrxv_QgnsoSd6ZII5Mvpq4VabLXFIUdAQtzGvKsYcSHa-FOuGBU8UQBaAuSH5kI5uQlR75Io8qayeGxvcHejJA/file#", "3d", function(som, erroId, erroNome)
 
 			if not isValid(som) then
 				print("Erro no audio" .. erroNome)
