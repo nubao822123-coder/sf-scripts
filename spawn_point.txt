@@ -1,17 +1,7 @@
---@name Spawn point
+--@name Spawn point com autoheal
 --@author Kid benglao
 --@shared
 if SERVER then
-	hook.add("Think","heal",function()
-		local vida = owner():getHealth()
-		local batteria = owner():getArmor()
-		if vida < 200 then
-			owner():setHealth(vida + 1)
-		end
-		if batteria < 200 then
-			owner():setArmor(batteria + 1)
-		end
-	end)
 	local pos
 	local holo = hologram.create(Vector(0,0,0) + Vector(0,0,30),Angle(0,0,0),"models/props_c17/gravestone_cross001a.mdl",Vector(0.4,0.4,0.4))
 	hook.add("PlayerDeath", "pos", function(ply, inflictor, attacker)
@@ -20,16 +10,6 @@ if SERVER then
 			holo:setPos(pos + Vector(0,0,30))
 			net.start("sound")
             net.send()
-			attacker:kill()
-		end
-	end)
-	hook.add("PlayerHurt", "pos", function(ply, attacker, newHealth, damageTaken)
-		if ply ~= owner() then return end
-		if attacker:isPlayer() and attacker ~= owner() then
-			attacker:applyDamage(
-				damageTaken,
-				ply
-			)
 		end
 	end)
 
@@ -43,7 +23,7 @@ if SERVER then
 	end)
 else 
 	net.receive("sound", function()
-		bass.loadURL("https://cdn.discordapp.com/attachments/1525311386463375481/1552334439923716116/tmp_7901-951678082_3.mp3?ex=6ab53b9b&is=6ab3ea1b&hm=cdc83bb81f636da2d52d2d27c3dff4036c3c582be5cdac563a74267d3daf19a3&", "3d", function(som, erroId, erroNome)
+		bass.loadURL("https://uc652612a60195ec25fb1b0de202.dl.dropboxusercontent.com/cd/0/inline/DIspjydDkkYm8nr_MhfuTh5WJ3LVlbxE-v4WxyFU-_LlmkUOox9FeSyRKCJPcT1dIDaAoZLmk64_EkeNsjdEPvjz9MLzJWVovd3EmckPzvvqrqWfINu-UTCv-epl_15K9ILUZKp9mUJbYIu84Ws_zbwh/file#", "3d", function(som, erroId, erroNome)
 
 			if not isValid(som) then
 				print("Erro no audio" .. erroNome)
@@ -57,7 +37,7 @@ else
 		end)
 	end)
 	net.receive("sound2", function()
-		bass.loadURL("https://cdn.discordapp.com/attachments/1525311386463375481/1552337307925872651/roblox-spawn.mp3?ex=6ab53e47&is=6ab3ecc7&hm=33716c87336ea5f1398554df7869a46687048f5d665d653afa26239ccb377b78&", "3d", function(som, erroId, erroNome)
+		bass.loadURL("https://ucb71ad36d4d06f829e868a5c459.dl.dropboxusercontent.com/cd/0/inline/DIv9gegqRyOFYyo1pPF5Hw_6j-tu2ZPqEjfMmOaEcPaPCkqJ-t4So6awZVJKqXU-etg4G7JkGZHYraWQkgsYUD2k2uo1-SG6UNCokDkBUv2lIlDxmngYpl4c3umNl6nqhl81gBtyzS226cXUJD0wKaog/file#", "3d", function(som, erroId, erroNome)
 
 			if not isValid(som) then
 				print("Erro no audio" .. erroNome)
