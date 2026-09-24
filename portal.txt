@@ -156,7 +156,7 @@ if SERVER then
 else
 	net.receive("som",function()
 		local holo = net.readEntity()
-		bass.loadURL("https://cdn.discordapp.com/attachments/1552030417945759764/1552353869084758098/portal-gun-sound-effect.mp3?ex=6ab54db3&is=6ab3fc33&hm=14f4de0caf96a02c72d188d6b53c210645aa64d94ceb0ed00a7fc9ee18d1fcfb&", "3d", function(som, erroId, erroNome)
+		bass.loadURL("https://uc7327776a3fe468d0e81a4fcfdc.dl.dropboxusercontent.com/cd/0/inline/DIvja9EVtCZ0bxa8xhaHyIbac-bAvLqxyeQ5y0qer3FIPmdsfEEi5l5E3SY1z3gVbFUWEW81sEVlPrR-WFnp7FezpG8H97W9xWYi4lu0cos9niI0MvQuj3HRtNluCP1dkwdkeqShl11SjUBxrCGRUVdp/file#", "3d", function(som, erroId, erroNome)
         	if not isValid(som) then return end
 			som:setVolume(1)
         	som:setPos(holo:getPos())
